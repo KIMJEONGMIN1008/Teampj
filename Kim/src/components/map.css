@@ -1,0 +1,67 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  .map-container {
+    width: 100vw;
+    height: calc(100vh - 60px); /* 헤더 높이만큼 뺌 */
+    position: absolute;
+    top: 60px; /* 헤더 아래에 위치하게 */
+    left: 0;
+    z-index: 1; /* 헤더보다 아래 */
+  }
+  
+.custom-attribution {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  z-index: 999;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.custom-zoom-controls {
+  position: absolute;
+  bottom: 70px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1;
+}
+
+.custom-zoom-controls button {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;     
+  justify-content: center;   
+  padding: 0;
+}
+
+.mapboxgl-ctrl-zoom-in::after {
+  content: '+';
+  font-size: 15px;
+}
+
+.mapboxgl-ctrl-zoom-out::after {
+  content: '-'; 
+  font-size: 15px;
+}
+
+.mapboxgl-ctrl-zoom-in span,
+.mapboxgl-ctrl-zoom-out span {
+  display: none;
+}

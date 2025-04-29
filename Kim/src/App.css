@@ -1,0 +1,79 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.app-header {
+  background-color: #fdf1e6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed; /* 상단에 고정 */
+  top: 0;
+  left: 0;
+  width: 98%;
+  z-index: 10; /* 지도 위에 겹치지 않도록 설정 */
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.search-bar {
+  position: relative;  
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 8px 40px 8px 12px;  
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.mic-button {
+  position: absolute;   
+  right: 12px;          
+  top: 50%;             
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mic-button img {
+  width: 15px;
+  height: 20px;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+}
+
+.icons img {
+  width: 24px;
+  height: 24px;
+  margin-left: 15px;
+  cursor: pointer;
+}
