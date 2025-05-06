@@ -13,12 +13,17 @@ const Map = () => {
     const map = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/light-v11',
-      center: [128.849795, 35.902195],
-      zoom: 16,
+      center: [128.8498090452777, 35.90041253141588],
+      zoom: 17,
       attributionControl: false,
     });
     
-
+    map.on('click', (e) => {
+      const { lng, lat } = e.lngLat; // 클릭한 지점의 경도와 위도
+      console.log(`Clicked coordinates: Longitude: ${lng}, Latitude: ${lat}`);
+      // 또는 alert로 보여줄 수도 있습니다.
+      alert(`[${lng}, ${lat}]`);
+    });
 
     // 확대, 축소 버튼
     const customControl = document.createElement('div');
@@ -40,11 +45,34 @@ const Map = () => {
     map.getContainer().appendChild(attribution);
 
     // GeoJSON 데이터 불러오기
-    fetch('/data/building.json')
-      .then((res) => res.json())
-      .then((geojson) => {
-        // 외곽선 표시
-        addOutlineLayer(map, geojson);
+    const buildingFiles = [
+      '/data/building(engineering).json',
+      '/data/building(convenience).json',
+      '/data/building(life-sciences).json',
+      '/data/building(rehabilitation).json',
+      '/data/building(management).json',
+      '/data/building(cooperation).json',
+      '/data/building(humanities).json'
+    ];
+    
+    Promise.all(buildingFiles.map((url) => fetch(url).then((res) => res.json())))
+      .then((geojsonList) => {
+        const combinedGeojson = {
+          type: 'FeatureCollection',
+          features: [],
+        };
+
+        geojsonList.forEach((item) => {
+          if (item.type === 'FeatureCollection') {
+            combinedGeojson.features.push(...item.features);
+          } else if (item.type === 'Feature') {
+            combinedGeojson.features.push(item);
+          } else {
+            console.warn('❌ 알 수 없는 GeoJSON 형식:', item);
+          }
+        });
+    
+        addOutlineLayer(map, combinedGeojson);
 
         // 클릭 이벤트 처리
         map.on('click', (e) => {
@@ -60,6 +88,8 @@ const Map = () => {
             }
           });
         });
+
+    
 
     return () => {
       map.remove(); // cleanup

@@ -1,4 +1,5 @@
 import mapboxgl from 'mapbox-gl';
+import centroid from '@turf/centroid';
 
 export const addOutlineLayer = (map, geojsonData) => {
   map.addSource('campus-buildings', {
@@ -14,48 +15,63 @@ export const addOutlineLayer = (map, geojsonData) => {
       'fill-color': '#0074D9',
       'fill-opacity': 0,
     },
+    layout: {},
+    interactive: true, 
   });
 };
 
 export const addMarkerAndHighlight = (map, feature) => {
-  const markerCoordinates = feature.properties.marker;
-  const coords = feature.geometry.coordinates[0];
-  const center = coords[Math.floor(coords.length / 2)];
+  const markerCoords = feature.properties?.marker || null;
+  let center;
 
-  // 마커 제거
-  if (window.currentMarker) {
-    window.currentMarker.remove();
+  if (markerCoords && Array.isArray(markerCoords) && markerCoords.length === 2) {
+    center = { lng: markerCoords[0], lat: markerCoords[1] };
+  } else {
+    const coords = feature.geometry.coordinates[0];
+    center = coords.reduce(
+      (acc, coord) => {
+        acc.lng += coord[0];
+        acc.lat += coord[1];
+        return acc;
+      },
+      { lng: 0, lat: 0 }
+    );
+    center.lng /= coords.length;
+    center.lat /= coords.length;
   }
 
-  // 마커 이미지 요소 생성
-  const markerElement = document.createElement('img');
-  markerElement.src = '/png/marker.png';
-  markerElement.style.width = '100px';
-  markerElement.style.height = '100px';
-  markerElement.style.cursor = 'pointer';
-  markerElement.style.position = 'absolute'; 
-  markerElement.style.zIndex = '9999';   
+  console.log('Calculated Center:', center);  // 디버깅용: 계산된 중심 좌표 확인
 
-  markerElement.onload = () => {
-    const marker = new mapboxgl.Marker(markerElement)
-      .setLngLat(markerCoordinates && Array.isArray(markerCoordinates) ? markerCoordinates : center)
+  // 기존 마커 제거
+  if (window.currentMarker) window.currentMarker.remove();
+
+  // 먼저 지도 이동
+  map.flyTo({
+    center: [center.lng, center.lat],
+    zoom: 18,
+    speed: 1.2,
+    curve: 1,
+    essential: true,
+  });
+
+  // flyTo가 끝난 후 마커 표시
+  map.once('moveend', () => {
+    const marker = new mapboxgl.Marker({ color: 'red' })
+      .setLngLat([center.lng, center.lat])
       .addTo(map);
-
     window.currentMarker = marker;
     console.log("✅ Marker added at:", marker.getLngLat());
-  };
-
-  markerElement.onerror = (err) => {
-    console.error("❌ Marker image failed to load:", err);
-  };
+  });
 
   // 기존 하이라이트 제거
   if (map.getLayer('highlight')) {
     map.removeLayer('highlight');
+  }
+  if (map.getSource('highlight')) {
     map.removeSource('highlight');
   }
 
-  // 하이라이트 새로 추가
+  // 하이라이트 추가
   map.addSource('highlight', {
     type: 'geojson',
     data: feature,
@@ -66,8 +82,8 @@ export const addMarkerAndHighlight = (map, feature) => {
     type: 'line',
     source: 'highlight',
     paint: {
-      'line-color': '#FF0000',
-      'line-width': 4,
+      'line-color': '#000000',
+      'line-width': 3,
     },
   });
 };
