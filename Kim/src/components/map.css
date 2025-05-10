@@ -7,11 +7,16 @@ html, body {
 
   .map-container {
     width: 100vw;
-    height: calc(100vh - 60px); /* 헤더 높이만큼 뺌 */
+    height: 100vh;
     position: absolute;
-    top: 60px; /* 헤더 아래에 위치하게 */
+    top: 0;
     left: 0;
-    z-index: 1; /* 헤더보다 아래 */
+    z-index: 1;
+  }
+
+  .mapboxgl-marker {
+    z-index: 1000 !important;
+    pointer-events: auto !important;
   }
   
 .custom-attribution {
