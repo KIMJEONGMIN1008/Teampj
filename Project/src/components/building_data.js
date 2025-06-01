@@ -15,30 +15,107 @@ export const buildingInfo = {
     offices: ['2층-IT 공과대학 행정실'],
 
     roomDetails: {
-      '7102A': { type: '강당', image: '/build/class/rounge.PNG' },
-      '7205': { type: '컴퓨터 실습실' },
-      '7206': { type: '컴퓨터 실습실' },
-      '7207': { type: '컴퓨터 실습실' },
-      '7306': { type: '컴퓨터 실습실' },
-      '7307': { type: '컴퓨터 실습실', image: '/build/class/7307.PNG' },
-      '7405': { type: '일반 강의실' },
-      '7406': { type: '컴퓨터 실습실' },
-      '7409': { type: '컴퓨터 실습실' },
-      '7418': { type: '일반 강의실', image: '/build/class/7418.PNG' },
-      '7506': { type: '컴퓨터 실습실' },
-      '7507A': { type: '컴퓨터 실습실' },
-      '7507B': { type: '컴퓨터 실습실' },
-      '7514': { type: '일반 강의실' },
-      '7605': { type: '컴퓨터 실습실' },
-      '7606': { type: '컴퓨터 실습실' },
-      '7607': { type: '컴퓨터 실습실' },
-      '7615': { type: '일반 강의실' },
-      '7705A': { type: '컴퓨터 실습실' },
-      '7705B': { type: '컴퓨터 실습실' },
-      '7706': { type: '일반 강의실' },
-      '7707': { type: '컴퓨터 실습실' },
-      '7714': { type: '일반 강의실' },
+      '7102A': { 
+        type: '강당', 
+        useAPI: true
+      },
+      '7205': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7206': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7207': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7306': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7307': { 
+        type: '컴퓨터 실습실', 
+        useAPI: true
+      },
+      '7405': { 
+        type: '일반 강의실',
+        useAPI: true
+      },
+      '7406': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7409': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7418': { 
+        type: '일반 강의실', 
+        useAPI: true
+      },
+      '7506': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7507A': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7507B': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7514': { 
+        type: '일반 강의실',
+        useAPI: true
+      },
+      '7605': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7606': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7607': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7615': { 
+        type: '일반 강의실',
+        useAPI: true
+      },
+      '7705A': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7705B': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7706': { 
+        type: '일반 강의실',
+        useAPI: true
+      },
+      '7707': { 
+        type: '컴퓨터 실습실',
+        useAPI: true
+      },
+      '7714': { 
+        type: '일반 강의실',
+        useAPI: true
+      },
     }
   },
   // 다른 건물들도 추가 가능
+};
+
+// 강의실 종류 정보 (SQL과 연동되지 않은 기본 정보)
+export const roomTypeInfo = {
+  '강당': '대규모 행사 및 특강을 위한 공간',
+  '일반 강의실': '강의 진행을 위한 기본 교실',
+  '컴퓨터 실습실': '컴퓨터를 활용한 실습 수업을 위한 공간',
+  '실험실': '실험 및 연구를 위한 특수 공간'
 };
