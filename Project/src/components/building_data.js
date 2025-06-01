@@ -32,10 +32,10 @@ export const buildingInfo = {
       '7605': { type: '컴퓨터 실습실' },
       '7606': { type: '컴퓨터 실습실' },
       '7607': { type: '컴퓨터 실습실' },
-      '7615': { type: '일반 강의실' },
+      '7615': { type: '일반 강의실', image: '/build/class/7615.PNG'  },
       '7705A': { type: '컴퓨터 실습실' },
-      '7705B': { type: '컴퓨터 실습실' },
-      '7706': { type: '일반 강의실' },
+      '7705B': { type: '컴퓨터 실습실', image: '/build/class/7507B.PNG' },
+      '7706': { type: '일반 강의실', image: '/build/class/7707.PNG'  },
       '7707': { type: '컴퓨터 실습실' },
       '7714': { type: '일반 강의실' },
     }
